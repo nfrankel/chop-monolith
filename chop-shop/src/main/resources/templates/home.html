@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/webjars/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/style/ribbon.css" rel="stylesheet">
+    <link href="/style/custom.css" rel="stylesheet">
+    <title>Welcome of the Apache APISIX Chop Shop!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px;">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/image/apisix.svg" height="72" width="72" /> Chop Shop
+        </a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <h2><span class="badge bg-info">1.2</span></h2>
+                </li>
+                    <a class="nav-link active" href="/checkout">
+                        <i class="bi" id="cartIcon"></i> Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <span id="itemCount" class="badge bg-success">0</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="card-group" id="products"></div>
+</div>
+<template id="product">
+    <div class="card" style="max-width: 430px;">
+        <img src="/image/1.jpg" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Great product</h5>
+            <p class="card-text">And not expensive at all!</p>
+        </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-success add-to-cart">
+                <i class="bi bi-cart-plus"></i>
+                Add to cart <span class="badge rounded-pill bg-light text-dark">$5.00</span>
+            </a>
+        </div>
+        <div class="ribbon ribbon-top-right"><span>Best deal!</span></div>
+    </div>
+</template>
+</body>
+<script type="module" src="/script/home.js"></script>
+</html>
