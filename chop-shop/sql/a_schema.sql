@@ -1,0 +1,11 @@
+CREATE SCHEMA IF NOT EXISTS chopshop;
+
+USE chopshop;
+
+CREATE TABLE IF NOT EXISTS product (
+    id BIGINT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    price DOUBLE NOT NULL,
+    hero BOOLEAN NOT NULL
+);
