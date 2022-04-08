@@ -1,0 +1,30 @@
+Before the demo, launch the MariaDB Docker image:
+
+[source,bash]
+----
+docker run --name maria --rm -it -e MARIADB_ROOT_PASSWORD=root -e MARIADB_DATABASE=chopshop -v `pwd`/chop-shop/sql:/docker-entrypoint-initdb.d:ro -p3306:3306 mariadb:10-focal
+----
+
+After the demo, stop the MariaDB Docker image:
+
+[source,bash]
+----
+docker stop maria
+----
+
+docker run --privileged --rm  -it --hostname fn --name fnserver -v /var/run/docker.sock:/var/run/docker.sock -v $PWD/data:/app/data -e FN_DOCKER_NETWORKS=chopping-monolith_default -e FN_PORT=8008 -p 8008:8008 fnproject/fnserver
+
+export FN_API_URL=http://127.0.0.1:8008
+
+fn update context registry fndemouser
+
+fn create app pricingapp
+
+In the pricing folder:
+
+fn --verbose deploy --app pricingapp --local
+
+fn inspect f pricingapp pricing
+
+docker exec -it fnserver sh
+
