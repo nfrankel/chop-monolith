@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/chop-shop"
+    schedule:
+      interval: "weekly"
