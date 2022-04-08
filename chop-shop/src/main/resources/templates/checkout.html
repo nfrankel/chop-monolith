@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/webjars/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/style/ribbon.css" rel="stylesheet">
+    <link href="/style/custom.css" rel="stylesheet">
+    <title>Checkout</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px;">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/image/apisix.svg" height="72" width="72" /> Continue shopping
+        </a>
+        <h2><span class="badge bg-info">1.2</span></h2>
+    </div>
+</nav>
+<div class="container">
+    <h1>Checkout</h1>
+    <div class="row">
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Unit price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="checkout"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Grand total</td>
+                    <td id="total"></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+<template id="line">
+    <tr>
+        <td><img src="/image/1.jpg" height="80"></td>
+        <td>Great product</td>
+        <td>$5.00</td>
+        <td>1</td>
+        <td>
+            <a class="btn btn-success remove-from-checkout">
+                <i class="bi bi-trash"></i>
+            </a>
+        </td>
+    </tr>
+</template>
+<script type="module" src="/script/checkout.js"></script>
+</html>
