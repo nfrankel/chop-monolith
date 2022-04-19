@@ -48,9 +48,13 @@ class CartHandler(private val catalog: Catalog) {
             ServerResponse.ok().bodyValueAndAwait(CartQuantityView(cart))
         }
     }
+
+    suspend fun cartQuantity(req: ServerRequest) =
+        ServerResponse.ok().bodyValueAndAwait(CartQuantityView(req.cart()))
 }
 
 fun cartRoutes(catalog: Catalog) = coRouter {
     val handler = CartHandler(catalog)
+    GET("/cart/quantity", handler::cartQuantity)
     POST("/cart/add/{productId}", handler::add)
 }
