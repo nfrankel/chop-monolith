@@ -15,7 +15,7 @@
         <a class="navbar-brand" href="#" th:href="@{/}">
             <img src="../static/image/apisix.svg" height="72" width="72" th:src="@{/image/apisix.svg}" /> Continue shopping
         </a>
-        <h2><span class="badge bg-info">1.0</span></h2>
+        <h2><span class="badge bg-info">1.1</span></h2>
     </div>
 </nav>
 <div class="container">
@@ -31,23 +31,11 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr th:each="line : ${checkout.cart.content.entrySet()}">
-                    <td><img src="../static/image/1.jpg" th:src="${'/image/' + line.key.id + '.jpg'}" height="80"></td>
-                    <td th:text="${line.key.name}">Super duper product</td>
-                    <td th:text="${line.value}">3</td>
-                    <td th:text="${#numbers.formatCurrency(line.key.price)}">$3.30</td>
-                    <td>
-                        <a class="btn btn-success remove-from-checkout" th:data-product-id="${line.key.id}">
-                            <i class="bi bi-trash" th:data-product-id="${line.key.id}"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
+            <tbody id="checkout"></tbody>
             <tfoot>
                 <tr>
                     <td colspan="3">Grand total</td>
-                    <td th:text="${#numbers.formatCurrency(checkout.total)}">$18</td>
+                    <td id="total"></td>
                     <td></td>
                 </tr>
             </tfoot>
@@ -55,5 +43,18 @@
     </div>
 </div>
 </body>
+<template id="line">
+    <tr>
+        <td><img src="/image/1.jpg" height="80"></td>
+        <td>Great product</td>
+        <td>$5.00</td>
+        <td>1</td>
+        <td>
+            <a class="btn btn-success remove-from-checkout">
+                <i class="bi bi-trash"></i>
+            </a>
+        </td>
+    </tr>
+</template>
 <script type="module" src="../static/script/checkout.js" th:src="@{/script/checkout.js}"></script>
 </html>
