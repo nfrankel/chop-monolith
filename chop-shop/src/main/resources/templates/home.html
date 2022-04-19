@@ -18,38 +18,39 @@
         <div>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <h2><span class="badge bg-info">1.0</span></h2>
+                    <h2><span class="badge bg-info">1.1</span></h2>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="checkout.html" th:href="@{checkout}">
-                        <i class="bi" id="cartIcon" th:classappend="${cart.quantity == 0} ? 'bi-cart' : 'bi-cart-fill'"></i> Cart
+                        <i class="bi" id="cartIcon"></i> Cart
                     </a>
                 </li>
                 <li class="nav-item">
-                    <span id="itemCount" class="badge bg-success" th:text="${cart.quantity}">0</span>
+                    <span id="itemCount" class="badge bg-success">0</span>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-    <div class="card-group">
-        <div class="card" th:each="product: ${products}" style="max-width: 430px" >
-            <div class="ribbon ribbon-top-right" th:if="${product.hero}"><span>Best deal!</span></div>
-            <img src="../static/image/1.jpg" class="card-img-top" th:src="${'/image/' + product.id + '.jpg'}">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${product.name}">Great product</h5>
-                <p class="card-text" th:text="${product.description}">And not expensive at all!</p>
-            </div>
-            <div class="card-footer text-center">
-                <a class="btn btn-success add-to-cart" th:data-product-id="${product.id}">
-                    <i class="bi bi-cart-plus" th:data-product-id="${product.id}"></i> Add to cart
-                    <span class="badge rounded-pill bg-light text-dark" th:data-product-id="${product.id}" th:text="${#numbers.formatCurrency(product.price)}">$5.00</span>
-                </a>
-            </div>
-        </div>
-    </div>
+    <div class="card-group" id="products"></div>
 </div>
+<template id="product">
+    <div class="card" style="max-width: 430px;">
+        <img src="/image/1.jpg" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Great product</h5>
+            <p class="card-text">And not expensive at all!</p>
+        </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-success add-to-cart">
+                <i class="bi bi-cart-plus"></i>
+                Add to cart <span class="badge rounded-pill bg-light text-dark">$5.00</span>
+            </a>
+        </div>
+        <div class="ribbon ribbon-top-right"><span>Best deal!</span></div>
+    </div>
+</template>
 </body>
 <script type="module" src="../static/script/home.js" th:src="@{/script/home.js}"></script>
 </html>
