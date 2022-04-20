@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
                 bean { homeRoute(ref()) }
                 bean { cartRoutes(ref()) }
                 bean { checkoutRoutes(ref()) }
+                bean { pricingRoute() }
             }
         )
     }
