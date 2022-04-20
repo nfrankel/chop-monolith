@@ -20,7 +20,7 @@ services:
       ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2397"
       ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2397"
   chopshop:
-    image: chopshop:1.2
+    image: chopshop:1.3
     environment:
       SPRING_R2DBC_URL: "r2dbc:mariadb://mariadb:3306/chopshop"
       SPRING_DEVTOOLS_ADD-PROPERTIES: false
