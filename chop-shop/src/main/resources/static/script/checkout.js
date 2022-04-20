@@ -1,7 +1,9 @@
 (function () {
     const fetchCheckout = async () => {
         const response = await fetch('/checkout/c')
-        displayCheckout(await response.json())
+        const json = await response.json()
+        displayCheckout(json)
+        fetchPrice(json)
         attachEventHandlers()
     }
     const displayCheckout = checkout => {
@@ -10,7 +12,15 @@
             tbody.removeChild(tbody.firstChild);
         }
         checkout.lines.forEach(displayCheckoutLine)
-        let total = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(checkout.total)
+    }
+    const fetchPrice = async checkout => {
+        const response = await fetch('/price', {
+            method: 'POST',
+            body: JSON.stringify(checkout),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        const price = await response.json()
+        let total = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(price)
         document.getElementById('total').innerHTML = total
     }
     const displayCheckoutLine = line => {
@@ -35,7 +45,9 @@
             `/checkout/remove/${event.target.dataset.productId}`,
             { method: 'DELETE' }
         )
-        displayCheckout(await response.json())
+        const json = await response.json()
+        displayCheckout(json)
+        fetchPrice(json)
     }
     const attachEventHandlerToRemoveButton = button => {
         button.onclick = removeFromCheckout
