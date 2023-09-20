@@ -1,6 +1,10 @@
+import { backend } from './env.js'
+import { fetchVersion } from './version.js'
+
 (function () {
+
     const fetchCatalog = async event => {
-        const response = await fetch('/catalog')
+        const response = await fetch(`${backend()}/catalog`)
         displayProducts(await response.json())
         attachEventHandlers()
         displayCart()
@@ -31,12 +35,12 @@
         document.getElementById('products').appendChild(fragment)
     }
     const displayCart = async event => {
-        const response = await fetch('/cart/quantity')
+        const response = await fetch(`${backend()}/cart/quantity`)
         updateQuantity(await response.json())
     }
     const addToCart = async event => {
         const response = await fetch(
-            `/cart/add/${event.target.dataset.productId}`,
+            `${backend()}/cart/add/${event.target.dataset.productId}`,
             { method: 'POST' }
         )
         updateQuantity(await response.json())
@@ -55,6 +59,7 @@
         document.querySelectorAll('.add-to-cart').forEach(attachEventHandlerToProductButton)
     }
     window.onload = () => {
+        fetchVersion()
         fetchCatalog()
     }
 })()
