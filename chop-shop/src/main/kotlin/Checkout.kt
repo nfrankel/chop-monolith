@@ -1,6 +1,9 @@
 package ch.frankel.chopshop
 
-import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyValueAndAwait
+import org.springframework.web.reactive.function.server.coRouter
 
 @Suppress("UNUSED")
 class CheckoutView(private val cart: Cart, val total: OriginPrice) {
@@ -11,10 +14,8 @@ class CheckoutView(private val cart: Cart, val total: OriginPrice) {
 internal fun Cart.toCheckout() = CheckoutView(this, price(this))
 
 class CheckoutHandler(private val catalog: Catalog) {
-    suspend fun displayPage(@Suppress("UNUSED_PARAMETER") req: ServerRequest) =
-        ServerResponse.ok().renderAndAwait("checkout")
 
-    suspend fun fetchCheckout(@Suppress("UNUSED_PARAMETER") req: ServerRequest) =
+    suspend fun fetchCheckout(req: ServerRequest) =
         ServerResponse.ok().bodyValueAndAwait(req.cart().toCheckout())
 
     suspend fun removeRow(req: ServerRequest): ServerResponse {
@@ -28,7 +29,6 @@ class CheckoutHandler(private val catalog: Catalog) {
 
 fun checkoutRoutes(catalog: Catalog) = coRouter {
     val handler = CheckoutHandler(catalog)
-    GET("/checkout", handler::displayPage)
-    GET("/checkout/c", handler::fetchCheckout)
+    GET("/checkout", handler::fetchCheckout)
     DELETE("/checkout/remove/{productId}", handler::removeRow)
 }
