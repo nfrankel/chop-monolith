@@ -6,6 +6,7 @@ services:
     platform: linux/amd64
     volumes:
       - ./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro
+      - ./apisix_plugins:/opt/apisix/plugins:ro
     restart: always
     ports:
       - "9080:9080"
@@ -19,13 +20,19 @@ services:
       ALLOW_NONE_AUTHENTICATION: "yes"
       ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2397"
       ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2397"
-  chopshop:
-    image: chopshop:1.2
+  chopshop-backend:
+    image: chopshop-backend:1.2
     environment:
       SPRING_R2DBC_URL: "r2dbc:mariadb://mariadb:3306/chopshop"
       SPRING_DEVTOOLS_ADD-PROPERTIES: false
     depends_on:
       - mariadb
+  chopshop-frontend:
+    build: chop-shop-frontend
+    environment:
+      API_URL: http://localhost:9080/api
+    depends_on:
+      - chopshop-backend
   mariadb:
     image: mariadb:11.3.2
     environment:
