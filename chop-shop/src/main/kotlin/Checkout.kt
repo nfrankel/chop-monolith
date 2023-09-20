@@ -6,12 +6,11 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.coRouter
 
 @Suppress("UNUSED")
-class CheckoutView(private val cart: Cart, val total: OriginPrice) {
-    val lines: List<Pair<Product, Int>>
-        get() = cart.content.entries.map { it.toPair() }
+class CheckoutView(val lines: List<Pair<Product, Int>>) {
+    constructor(cart: Cart): this(cart.content.entries.map { it.toPair() })
 }
 
-internal fun Cart.toCheckout() = CheckoutView(this, price(this))
+internal fun Cart.toCheckout() = CheckoutView(this)
 
 class CheckoutHandler(private val catalog: Catalog) {
 
