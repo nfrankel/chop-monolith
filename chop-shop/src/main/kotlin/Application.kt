@@ -17,6 +17,7 @@ fun main(args: Array<String>) {
                 bean { cartRoutes(ref()) }
                 bean { checkoutRoutes(ref()) }
                 bean { versionRoute(env.getProperty("app.version", "unknown")) }
+                bean { pricingRoute() }
             }
         )
     }
