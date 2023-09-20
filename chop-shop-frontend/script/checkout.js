@@ -1,6 +1,10 @@
+import {backend} from './env.js'
+import {fetchVersion} from './version.js'
+
 (function () {
+
     const fetchCheckout = async () => {
-        const response = await fetch('/checkout/c')
+        const response = await fetch(`${backend()}/checkout`)
         displayCheckout(await response.json())
         attachEventHandlers()
     }
@@ -10,8 +14,10 @@
             tbody.removeChild(tbody.firstChild);
         }
         checkout.lines.forEach(displayCheckoutLine)
-        let total = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(checkout.total.price)
-        document.getElementById('total').innerHTML = total
+        document.getElementById('total').innerHTML = new Intl.NumberFormat('en', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(checkout.total.price)
     }
     const displayCheckoutLine = line => {
         const fragment = document.querySelector('#line').content.cloneNode(true)
@@ -20,8 +26,7 @@
         const nameCell = fragment.querySelectorAll('td')[1]
         nameCell.innerHTML = line.first.name
         const priceCell = fragment.querySelectorAll('td')[2]
-        let price = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(line.first.price)
-        priceCell.innerHTML = price
+        priceCell.innerHTML = new Intl.NumberFormat('en', {style: 'currency', currency: 'USD'}).format(line.first.price)
         const qtyCell = fragment.querySelectorAll('td')[3]
         qtyCell.innerHTML = line.second
         const btn = fragment.querySelector('a')
@@ -32,7 +37,7 @@
     }
     const removeFromCheckout = async event => {
         const response = await fetch(
-            `/checkout/remove/${event.target.dataset.productId}`,
+            `${backend()}/checkout/remove/${event.target.dataset.productId}`,
             { method: 'DELETE' }
         )
         displayCheckout(await response.json())
@@ -44,6 +49,7 @@
         document.querySelectorAll('.remove-from-checkout').forEach(attachEventHandlerToRemoveButton)
     }
     window.onload = () => {
+        fetchVersion()
         fetchCheckout()
     }
 })()
