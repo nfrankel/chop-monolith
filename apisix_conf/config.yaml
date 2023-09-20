@@ -1,3 +1,10 @@
+apisix:
+  extra_lua_path: /opt/?.lua
+plugins:
+  - proxy-rewrite                  # priority: 1008
+  - pipeline-request               # priority: 1000
+  - azure-functions                # priority: -1900
+
 deployment:
   etcd:
     host:

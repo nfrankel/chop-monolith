@@ -1,10 +1,11 @@
 package ch.frankel.chopshop
 
-import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyAndAwait
+import org.springframework.web.reactive.function.server.coRouter
 
 class HomeHandler(private val catalog: Catalog) {
-    suspend fun displayPage(@Suppress("UNUSED_PARAMETER") req: ServerRequest) =
-        ServerResponse.ok().renderAndAwait("home")
 
     suspend fun fetchCatalog(@Suppress("UNUSED_PARAMETER") req: ServerRequest) =
         ServerResponse.ok().bodyAndAwait(catalog.findAll())
@@ -12,6 +13,5 @@ class HomeHandler(private val catalog: Catalog) {
 
 fun homeRoute(catalog: Catalog) = coRouter {
     val handler = HomeHandler(catalog)
-    GET("/", handler::displayPage)
     GET("/catalog", handler::fetchCatalog)
 }

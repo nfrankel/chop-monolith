@@ -1,0 +1,20 @@
+i.bi {
+    font-size: 1.2em;
+}
+
+a i.bi {
+    color: black;
+}
+
+div.navbar {
+    margin-bottom: 20px;
+}
+
+#checkout img {
+    height: 80px;
+}
+
+a.navbar-brand img {
+    height: 72px;
+    width: 72px;
+}
