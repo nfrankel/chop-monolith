@@ -1,5 +1,5 @@
 #docker build -t chopshop-front:1.0 .
-FROM node:20-alpine as deps
+FROM node:21-alpine as deps
 
 WORKDIR /build
 
