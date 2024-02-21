@@ -27,7 +27,7 @@ services:
     depends_on:
       - mariadb
   mariadb:
-    image: mariadb:11.2.2
+    image: mariadb:11.3.2
     environment:
       MARIADB_ROOT_PASSWORD: "root"
       MARIADB_DATABASE: "chopshop"
