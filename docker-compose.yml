@@ -13,7 +13,7 @@ services:
     depends_on:
       - etcd
   etcd:
-    image: bitnami/etcd:3.5.12
+    image: bitnami/etcd:3.5.14
     environment:
       ETCD_ENABLE_V2: "true"
       ALLOW_NONE_AUTHENTICATION: "yes"
