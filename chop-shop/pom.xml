@@ -13,7 +13,7 @@
 	<version>1.3</version>
 	<properties>
 		<java.version>17</java.version>
-		<kotlin.version>1.9.23</kotlin.version>
+		<kotlin.version>1.9.25</kotlin.version>
 		<version.qualifier>-backend</version.qualifier>
 		<kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
 	</properties>
